@@ -29,7 +29,7 @@ const Countries = () => {
 
   return (
     <div>
-      <div className='p-4 card shadow-lg bg-slate-50 mt-1'>
+      <div className='p-4  mt-1'>
         <h1 className='text-3xl font-semibold pt-1 pl-2'>Countries</h1>
         <div className='divider'></div>
         <div className=" overflow-x-auto ">

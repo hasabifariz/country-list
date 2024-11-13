@@ -1,3 +1,4 @@
+import { Handshake, Landmark } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,13 +10,13 @@ function Layout({ children }) {
   };
 
   return (
-    <div className="drawer">
+    <div className="drawer max-h-screen overflow-hidden">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
       {/* Main Content Area */}
       <div className="drawer-content">
         {/* Navbar */}
-        <div className="navbar bg-base-100 border-b">
+        <div className="navbar bg-slate-50 border-b">
           <div className="navbar-start">
             <label
               htmlFor="my-drawer"
@@ -48,10 +49,11 @@ function Layout({ children }) {
       {/* Sidebar Drawer */}
       <div className="drawer-side">
         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 pt-10">
+        <ul className="menu bg-base-100 text-base-content min-h-full max-w-sm p-4 pt-10">
+          <h1 className='text-2xl font-bold mb-10'>CountriesInfoApp</h1>
           {/* Sidebar content */}
-          <li className='text-lg'><Link to={'/'}>Countries</Link></li>
-          <li className='text-lg '><Link to={'/cooperating-countries'}>Cooperating Countries</Link></li>
+          <li className='text-[14px] border-y font-semibold'><Link to={'/'}><Landmark size={20}/>Countries</Link></li>
+          <li className='text-[14px] border-b font-semibold'><Link to={'/cooperating-countries'}><Handshake size={20}/>Cooperating Countries</Link></li>
         </ul>
       </div>
     </div>
