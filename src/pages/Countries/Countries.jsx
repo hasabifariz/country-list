@@ -33,8 +33,8 @@ const Countries = () => {
         <h1 className='text-3xl font-semibold pt-1 pl-2'>Countries</h1>
         <div className='divider'></div>
         <div className=" overflow-x-auto ">
-          <div className="max-h-[500px] overflow-y-auto">
-            <table className="table w-full table-sm ">
+          <div className=" max-h-screen overflow-y-auto">
+            <table className="table w-full lg:table-sm">
               <thead>
                 <tr>
                   <th className='w-[3%]'>No.</th>

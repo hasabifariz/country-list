@@ -6,7 +6,6 @@ import { ChevronLeft, MapPin, Users, Globe, DollarSign, Flag, SquareArrowOutUpRi
 const CountriesDetail = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [collaboratingCountries, setCollaboratingCountries] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const name = location?.state?.name;
@@ -27,12 +26,21 @@ const CountriesDetail = () => {
   }, [name]);
 
   const handleCollaboration = () => {
-    const success = Math.random() > 0.5; // 50% probability
-    if (success) {
-      setCollaboratingCountries([...collaboratingCountries, data]);
-      alert(`Collaboration with ${data.name.common} was successful!`);
+    let countries = JSON.parse(localStorage.getItem('countries')) || [];
+    const newCountry = data.name.official;
+
+    if (countries.includes(newCountry)) {
+      alert(`${newCountry} already exists in the list!`);
     } else {
-      alert(`Collaboration with ${data.name.common} failed. Try again!`);
+      const success = Math.random() > 0.5;
+      if (success) {
+        countries.push(newCountry);
+
+        localStorage.setItem('countries', JSON.stringify(countries));
+        alert(`${newCountry} has been added to the list.`);
+      } else {
+        alert(`Collaboration with ${newCountry} failed. Try again!`);
+      }
     }
   };
 
@@ -40,13 +48,19 @@ const CountriesDetail = () => {
     <div className='flex flex-col items-center'>
       <p className='text-sm font-semibold'>Fetching data, please wait...</p>
       <span className="loading loading-dots loading-sm"></span>
+      <button className='btn px-7 btn-sm'>Cancel</button>
     </div>
   );
-  if (!data) return <p className="text-center mt-4">No data available</p>;
+  if (!data) return (
+    <div>
+      <p className="text-center mt-4">No data available</p>
+      <a href="/countries" className="text-blue-500 text-center">Back</a>
+    </div>
+  )
 
   return (
     <div className="w-full min-h-screen p-2">
-      {/* Header with Back Button */}
+
       <div className="flex items-center mb-8">
         <button className="text-gray-600 hover:text-gray-900" onClick={() => navigate('/countries')}>
           <ChevronLeft size={24} />
@@ -107,19 +121,7 @@ const CountriesDetail = () => {
         </div>
       </div>
 
-      {/* Collaborating Countries List */}
-      {/* {collaboratingCountries.length > 0 && (
-        <div className="max-w-7xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
-          <h2 className="text-xl font-bold mb-4">List of Collaborating Countries</h2>
-          <ul className="list-disc pl-6 space-y-2">
-            {collaboratingCountries.map((country, index) => (
-              <li key={index} className="text-gray-700">{country.name.common}</li>
-            ))}
-          </ul>
-        </div>
-      )} */}
-
-      {/* Floating Button */}
+      {/* Collab Button */}
       <div className="fixed bottom-10 right-10">
         <button
           onClick={handleCollaboration}
@@ -131,7 +133,7 @@ const CountriesDetail = () => {
         </button>
         <button
           onClick={handleCollaboration}
-          className="md:hidden block bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg text-white hover:bg-blue-600 transition"
+          className="md:hidden  bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg text-white hover:bg-blue-600 transition"
         >
           <Plus size={24} />
         </button>
