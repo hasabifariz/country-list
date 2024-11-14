@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getByName } from '../../services/countries';
+import { Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CooperatingCountries = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
   const [countries, setCountries] = useState(JSON.parse(localStorage.getItem('countries')) || []);
   const [isShowed, setIsShowed] = useState(false);
@@ -21,7 +24,7 @@ const CooperatingCountries = () => {
       }
     };
 
-    setData([]);
+    setData([]); // Clear previous data
     countries.forEach((item) => {
       fetchData(item);
     });
@@ -37,6 +40,10 @@ const CooperatingCountries = () => {
   const handleDialog = (name) => {
     setIsShowed(true);
     setSelectedCountry(name);
+  };
+
+  const addCountry = () => {
+    navigate('/countries');
   };
 
   return (
@@ -65,8 +72,17 @@ const CooperatingCountries = () => {
                       </div>
                     </td>
                   </tr>
+                ) : data.length === 0 ? (
+                  <tr>
+                    <td align='center' colSpan={4}>
+                      <p className='text-sm mb-2'>You haven't collaborated with any countries yet.</p>
+                      <button onClick={addCountry} className='btn btn-sm bg-blue-500 hover:bg-blue-600 text-white'>
+                        <span className='flex items-center'><Plus size={20} className='mr-2' />Add Country</span>
+                      </button>
+                    </td>
+                  </tr>
                 ) : (
-                  data?.map((item, index) => (
+                  data.map((item, index) => (
                     <tr key={item?.name?.official}>
                       <td>{index + 1}</td>
                       <td>{item?.name?.official}</td>
@@ -100,7 +116,6 @@ const CooperatingCountries = () => {
           </div>
         </div>
       </dialog>
-
     </div>
   );
 };
