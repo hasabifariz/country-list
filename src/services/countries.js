@@ -5,7 +5,7 @@ export const getAll = async () => {
     const response = await axios.get('https://restcountries.com/v3.1/all');
     return response.data;
   } catch (error) {
-    console.error('Error fetching data from', endpoint, error);
+    console.error('Error fetching data', error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getByName = async (name) => {
     const response = await axios.get(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching data from', endpoint, error);
+    console.error('Error fetching data', error);
     throw error;
   }
 };

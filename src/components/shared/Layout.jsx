@@ -52,7 +52,7 @@ function Layout({ children }) {
         <ul className="menu bg-base-100 text-base-content min-h-full max-w-sm p-4 pt-10">
           <h1 className='text-2xl font-bold mb-10'>CountriesInfoApp</h1>
           {/* Sidebar content */}
-          <li className='text-[14px] border-y font-semibold'><Link to={'/'}><Landmark size={20}/>Countries</Link></li>
+          <li className='text-[14px] border-y font-semibold'><Link to={'/countries'}><Landmark size={20}/>Countries</Link></li>
           <li className='text-[14px] border-b font-semibold'><Link to={'/cooperated-countries'}><Handshake size={20}/>Cooperated Countries</Link></li>
         </ul>
       </div>
