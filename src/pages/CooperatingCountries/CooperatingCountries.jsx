@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getByName } from '../../services/countries';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CooperatingCountries = () => {
   const [data, setData] = useState([]);
@@ -10,6 +12,9 @@ const CooperatingCountries = () => {
   const [countries, setCountries] = useState(JSON.parse(localStorage.getItem('countries')) || []);
   const [isShowed, setIsShowed] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const toastError = (msg) => toast.error(msg)
+  const toastSuccess = (msg) => toast.success(msg)
 
   useEffect(() => {
     const fetchData = async (name) => {
@@ -31,10 +36,15 @@ const CooperatingCountries = () => {
   }, [countries]);
 
   const handleRevoke = () => {
-    const updatedCountries = countries.filter((item) => item !== selectedCountry);
-    setCountries(updatedCountries);
-    localStorage.setItem('countries', JSON.stringify(updatedCountries));
-    setIsShowed(false);
+    try {
+      const updatedCountries = countries.filter((item) => item !== selectedCountry);
+      setCountries(updatedCountries);
+      localStorage.setItem('countries', JSON.stringify(updatedCountries));
+      setIsShowed(false);
+      toastSuccess(`Your collaboration has been successfully revoked.`)
+    } catch (err) {
+      toastError(`Something wrong.`)
+    }
   };
 
   const handleDialog = (name) => {
@@ -48,6 +58,7 @@ const CooperatingCountries = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className='p-4 mt-1'>
         <h1 className='text-3xl font-semibold pt-1 pl-2'>Cooperated Countries</h1>
         <div className='divider'></div>
@@ -56,10 +67,10 @@ const CooperatingCountries = () => {
             <table className="table w-full table-sm">
               <thead>
                 <tr>
-                  <th className='w-[3%]'>No.</th>
-                  <th>Name</th>
-                  <th>Flag</th>
-                  <th align='center'>Action</th>
+                  <th className="w-[3%] text-[14px] text-slate-600" align='center'>No.</th>
+                  <th className='text-[14px] text-slate-600'>Name</th>
+                  <th className='text-[14px] text-slate-600'>Flag</th>
+                  <th align='center' className='text-[14px] text-slate-600'>Action</th>
                 </tr>
               </thead>
               <tbody>

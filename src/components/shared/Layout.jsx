@@ -10,7 +10,7 @@ function Layout({ children }) {
   };
 
   return (
-    <div className="drawer max-h-screen overflow-hidden">
+    <div className="drawer ">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
       {/* Main Content Area */}
@@ -53,7 +53,7 @@ function Layout({ children }) {
           <h1 className='text-2xl font-bold mb-10'>CountriesInfoApp</h1>
           {/* Sidebar content */}
           <li className='text-[14px] border-y font-semibold'><Link to={'/'}><Landmark size={20}/>Countries</Link></li>
-          <li className='text-[14px] border-b font-semibold'><Link to={'/cooperated-countries'}><Handshake size={20}/>Cooperating Countries</Link></li>
+          <li className='text-[14px] border-b font-semibold'><Link to={'/cooperated-countries'}><Handshake size={20}/>Cooperated Countries</Link></li>
         </ul>
       </div>
     </div>
