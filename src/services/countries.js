@@ -12,7 +12,7 @@ export const getAll = async () => {
 
 export const getByName = async (name) => {
   try {
-    const response = await axios.get(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
+    const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data', error);

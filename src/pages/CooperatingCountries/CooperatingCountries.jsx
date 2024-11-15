@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getByName } from '../../services/countries';
 import { Plus } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getByName } from '../../services/countries';
 
 const CooperatingCountries = () => {
   const [data, setData] = useState([]);
@@ -13,8 +13,12 @@ const CooperatingCountries = () => {
   const [isShowed, setIsShowed] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const toastError = (msg) => toast.error(msg)
-  const toastSuccess = (msg) => toast.success(msg)
+  const toastError = (msg) => toast.error(msg, {
+    position: "bottom-right"
+  })
+  const toastSuccess = (msg) => toast.success(msg, {
+    position: "bottom-right"
+  })
 
   useEffect(() => {
     const fetchData = async (name) => {
